@@ -30,10 +30,11 @@
            
                 <td><?php echo $row['id'] ?></td>
                 <td><?php echo $row['judul']; ?></td>
-                <td><?php echo $row['file']; ?></td>
+                <td> <a href="<?php echo base_url()."/uploads/".$row['file'] ?>" download> <?php echo $row['file']; ?></a>
+                   </td>
                 <td><?php
                 if ($row['status'] == 1) {
-                    echo "dikirm";
+                    echo "dikirim";
                 } else if($row['status']== 2) {
                     echo "dibaca";
                 } else if ($row['status']== 3) {

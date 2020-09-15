@@ -4,6 +4,12 @@ use App\Models\Masuk_model;
 
 class Masuk extends BaseController
 {
+
+        public function __construct()
+        {
+                helper('form');
+        }
+
 	public function index()
 	{
         $model = new Masuk_model();
@@ -20,9 +26,17 @@ class Masuk extends BaseController
         public function save()
         {
         $model = new Masuk_model();
+        $file = $this->request->getFile('file');
+        if ($file !== NULL) {
+              $file->move(ROOTPATH.'public/uploads');
+              $getFile =  $file->getName();
+        } else {
+              $getFile = NULL;
+        }
+        
         $data = [
             'judul' => $this->request->getPost('judul'),
-            'file' => $this->request->getPost('file'),
+            'file' => $getFile,
             'status' => $this->request->getPost('status'),
         ];
         $model->saveMasuk($data);
