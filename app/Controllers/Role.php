@@ -1,22 +1,32 @@
 <?php namespace App\Controllers;
 
 use App\Models\Role_model;
+use Config\Services;
+
 
 class Role extends BaseController
 {
+
+        protected $modul = 'role';
+
 	public function index()
 	{
         $model = new Role_model();
         $data['roles'] = $model->getRoles();
-        //var_dump($model->getRoles());
-        return view('roles/index',$data);
+        $data['title'] = 'Roles List';
+        $data['arr'] = 'Roles';
+        Services::template('roles/index', $data);
+        
 	}
 
       
 
         public function add()
         {
-        return view('roles/add');
+        $data['urlmethod'] = $this->modul.'/save';
+        $data['arr'] = 'Add';
+        $data['title'] = 'Form Role';
+        Services::template('roles/form', $data);
         }
 
         public function save()
@@ -31,14 +41,21 @@ class Role extends BaseController
         {
         $model = new Role_model();
         $data['role'] = $model->getRoles($id)->getRow();
-        return view('roles/edit',$data);
+        $data['urlmethod'] = $this->modul.'/update';
+        $data['arr'] = 'Edit';
+        $data['title'] = 'Form Role';
+        Services::template('roles/form', $data);
         }
 
         public function view($id)
         {
         $model = new Role_model();
         $data['role'] = $model->getRoles($id)->getRow();
-        return view('roles/view',$data);
+        $data['urlmethod'] = $this->modul;
+        $data['arr'] = 'View';
+        $data['v'] = "";
+        $data['title'] = 'Role Detail';
+        Services::template('roles/form', $data);
         }
         public function update()
         {
@@ -55,7 +72,7 @@ class Role extends BaseController
                         $model = new Role_model();
                         $model->deleteRoles($id);
                 } catch (\Throwable $th) {
-                        session()->setFlashData('danger', 'Pesan : Tidak bisa dihapus karena  '.$th->getMessage());
+                        session()->setFlashData('error', 'Pesan : Tidak bisa dihapus karena  '.$th->getMessage());
                 }
         
         return redirect()->to('/role');
