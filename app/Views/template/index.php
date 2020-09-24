@@ -19,7 +19,7 @@
     ?>
     <table border="1">
         <tr>
-            <th>ID</th>
+            <th>NO</th>
             <th>Nomor </th>
             <th>Sifat </th>
             <th>Lampiran </th>
@@ -28,10 +28,12 @@
             <th>Jabatan Penulis</th>
             <th>Action</th>
         </tr>
-        <?php foreach($user3 as $row ) : ?>
+        <?php 
+        $no = 1;
+        foreach($user3 as $row ) : ?>
         <tr>
            
-                <td><?php echo $row['id'] ?></td>
+                <td><?php echo $no++?></td>
                 <td><?php echo $row['nomor']; ?></td>
                 <td><?php echo $row['sifat']; ?></td>
                 <td><?php echo $row['lampiran']; ?></td>

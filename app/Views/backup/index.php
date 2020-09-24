@@ -19,17 +19,19 @@
     ?>
     <table border="1">
         <tr>
-            <th>ID</th>
+            <th>NO</th>
             <th>Judul Surat </th>
             <th>File </th>
             <th>Tanggal Disimpan</th>
             <th>Disimpan Oleh</th>
             <th>Action</th>
         </tr>
-        <?php foreach($user3 as $row ) : ?>
+        <?php 
+        $no = 1;
+        foreach($user3 as $row ) : ?>
         <tr>
            
-                <td><?php echo $row['id'] ?></td>
+                <td><?php echo $no++?></td>
                 <td><?php echo $row['judul']; ?></td>
                 <td><?php echo $row['file']; ?></td>
                 <td><?php echo $row['tgl_simpan']; ?></td>

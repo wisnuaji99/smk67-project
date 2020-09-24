@@ -22,7 +22,6 @@
             <th>No</th>
             <th>Judul Surat </th>
             <th>File </th>
-            <th>Dikirim Ke </th>
             <th>Status Surat</th>
             <th>Action</th>
         </tr>
@@ -34,8 +33,7 @@
                 <td><?php echo $no++; ?></td>
                 <td><?php echo $row['judul']; ?></td>
                 <td> <a href="<?php echo base_url()."/uploads/".$row['file'] ?>" download> <?php echo $row['file']; ?></a>
-                </td>
-                <td></td>
+                   </td>
                 <td><?php
                 if ($row['status'] == 1) {
                     echo "dikirim";
@@ -47,9 +45,9 @@
                  
                  ?></td>
                 <td>
-                    <a href="/masuk/edit/<?php echo $row['id']?>">Edit</a> |
-                    <a href="/masuk/view/<?php echo $row['id']?>">View</a> |
-                    <a href="/masuk/delete/<?php echo $row['id'] ?>">Delete</a>
+                    <a href="/surat/edit/<?php echo $row['id']?>">Edit</a> |
+                    <a href="/surat/view/<?php echo $row['id']?>">View</a> |
+                    <a href="/surat/delete/<?php echo $row['id'] ?>">Delete</a>
             </td>
 
            
@@ -57,8 +55,6 @@
         <?php endforeach;?>
     </table>
     <br />
-
-    <
-    <a href="/masuk/add">Tambah Data</a>
+    <a href="/surat/add">Tambah Data</a>
 </body>
 </html>

@@ -6,7 +6,7 @@
     <title>Form Edit Surat Masuk</title>
 </head>
 <body>
-    <form action="/masuk/update" method="post" enctype="multipart/form-data">
+    <form action="/surat/update" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?php echo $masuk->id; ?>" >
         <label for="judul">Judul: </label>
         <input type="text" name="judul" placeholder="Masukkan Judul" id="judul" value="<?php echo $masuk->judul; ?>">

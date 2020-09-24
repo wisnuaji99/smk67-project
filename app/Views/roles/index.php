@@ -19,14 +19,16 @@
     ?>
     <table border="1">
         <tr>
-            <th>ID</th>
+            <th>NO</th>
             <th>Nama Role</th>
             <th>Action</th>
         </tr>
-        <?php foreach($roles as $row ) : ?>
+        <?php 
+        $no = 1;
+        foreach($roles as $row ) : ?>
         <tr>
            
-                <td><?php echo $row['id'] ?></td>
+                <td><?php echo $no++?></td>
                 <td><?php echo $row['name_role']; ?></td>
                 <td>
                     <a href="/role/edit/<?php echo $row['id']?>">Edit</a> |

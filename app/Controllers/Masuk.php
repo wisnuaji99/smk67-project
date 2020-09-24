@@ -8,6 +8,7 @@ class Masuk extends BaseController
         public function __construct()
         {
                 helper('form');
+                helper('file');
         }
 
 	public function index()
@@ -61,8 +62,18 @@ class Masuk extends BaseController
         {
         $model = new Masuk_model();
         $id = $this->request->getPost('id');
+        $file = $this->request->getFile('file');
+        $cek = $model->where('id',$id)->first();
+        if ($file !== NULL) {
+                unlink(ROOTPATH.'public/uploads/'.$cek["file"]);
+                $file->move(ROOTPATH.'public/uploads');
+                $getFile = $file->getName();
+        } else {
+                $getFile = $cek["file"];
+        }
+        
         $data = ['judul' => $this->request->getPost('judul'),
-                'file' => $this->request->getPost('file'),
+                'file' => $getFile,
                 'status' => $this->request->getPost('status'),
 
 

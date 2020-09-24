@@ -28,7 +28,7 @@
         
         ?>"readonly>
         </br>
-        <a href="/masuk">Kembali</a>
+        <a href="/surat">Kembali</a>
     </form>
 </body>
 </html>

@@ -1,34 +1,43 @@
 <?php namespace App\Models;
 use CodeIgniter\Model;
  
-class User_model extends Model {
+class Auth_model extends Model {
 
     //  menunjukkan bahwa model ini mengambil data pada table roles di database
-    protected $table = 'users_smk';
+    protected $table = 'users';
 
     public function getUsers($id = false)
     {
         if ($id === false) {
-            return $this->db->table($this->table)->select('users_smk.*, roles.name_role')->join('roles','roles.id=users.role_id')->get()->getResultArray();
+            return $this->findAll();
         } else {
-            return $this->db->table($this->table)->select('users_smk.*, roles.name_role')->join('roles','roles.id=users.role_id')->getWhere(['users.id' => $id]);
+            return $this->getWhere(['id' => $id]);
         }
         
     }
-    public function saveUser($data)
+    public function register($data)
     {
        $query = $this->db->table($this->table)->insert($data);
        return $query;
     }
-    public function updateUser($data, $id){
+
+    public function cek_login($nik)
+    {
+        $query = $this->db->table($this->table)->where('nik',$nik)->countAll();
+        if ($query > 0) {
+            $hasil = $this->db->table($this->table)->where('nik',$nik)->limit(1)->get()->getRowArray();
+        } else {
+            $hasil = array();
+        }
+        
+       return $hasil;
+    }
+    public function updateUsers($data, $id){
         $query = $this->db->table($this->table)->update($data, ['id'=>$id]);
         //echo $this->db->getLastQuery();exit();
         return $query;
-
-
     }
-    
-    public function deleteUser($id)
+    public function deleteUsers($id)
     {
         $query = $this->db->table($this->table)->delete(array('id' => $id));
         if ( !$query)
@@ -38,5 +47,6 @@ class User_model extends Model {
             return $query;
         }
     }
+
 
 }

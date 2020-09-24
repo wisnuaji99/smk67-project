@@ -27,4 +27,13 @@ class Services extends CoreServices
 	//
 	//        return new \CodeIgniter\Example();
 	//    }
+
+	public static function template($page = null, $data= NULL)
+	{
+		echo view('layout/header' ,$data);
+		echo view('layout/sidebar' ,$data);
+		echo view('layout/topbar' ,$data);
+		echo view($page ,$data);
+		echo view('layout/footer' ,$data);
+	}
 }

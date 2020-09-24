@@ -20,17 +20,19 @@
     
     <table border="1">
         <tr>
-            <th>ID</th>
+            <th>NO</th>
             <th>Nama </th>
             <th>Alamat </th>
             <th>Level User </th>
             <th>No Telpon </th>
             <th>Action</th>
         </tr>
-        <?php foreach($user3 as $row ) : ?>
+        <?php 
+        $no = 1;
+        foreach($user3 as $row ) : ?>
         <tr>
            
-                <td><?php echo $row['id'] ?></td>
+                <td><?php echo $no++ ?></td>
                 <td><?php echo $row['name']; ?></td>
                 <td><?php echo $row['alamat']; ?></td>
                 <td><?php echo $row['name_role']; ?></td>
