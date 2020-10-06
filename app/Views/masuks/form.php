@@ -4,7 +4,7 @@ $id = isset($masuk) ? $masuk->id : "";
 $judul = isset($masuk) ? $masuk->judul : "";
 $file = isset($masuk) ? $masuk->file : "";
 $status = isset($masuk) ? $masuk->status : "";
-$surat_user = isset($masuk) ? $masuk->user : "";
+
 $v = isset($v) ? "readonly" : "";
 $btn = isset($masuk) ? "Ubah" : "Simpan";
 ?>
@@ -29,7 +29,7 @@ $btn = isset($masuk) ? "Ubah" : "Simpan";
                 <div class="card-body">
                   <form action="<?php echo site_url($urlmethod) ?>" method="post"  enctype="multipart/form-data">
                   <input type="hidden" name="id" value="<?php echo $id; ?>"> 
-                  <input type="hidden" name="tgl_kirim" value="<?php echo $surat_user; ?>">  
+                 
                   <div class="form-group">
                       <label for="judul">Judul</label>
                       <input type="text" class="form-control" id="judul" name="judul" aria-describedby="judul"
@@ -100,25 +100,7 @@ $btn = isset($masuk) ? "Ubah" : "Simpan";
                    
                   </div>
 
-                  <div class="form-group">
-                    <label for="select2Multiple">Dikirim Ke</label>
-                    <?php if ($v == "") { ?>
-                      
-                      <select class="select2-multiple form-control" name="users[]" multiple="multiple"
-                          id="select2Multiple">
-                          <option value="">Select Penerima</option>
-                          <?php foreach ($users as $key => $user) { ?>
-                          <option value="<?php echo $user['id']; ?>"><?php echo $user['name'] ?></option>
-                        <?php } ?>
-                      </select>
-                            <br />
-                   <?php  } 
-                   if($surat_user != "") { ?>
-                          <b>Penerima : <?php echo $surat_user;  ?></b>
-                       <?php } ?>  
-                     </ol>                   
-                  </div>
-
+                  
                     <?php if ($v == "") { ?>
                       <button type="submit" class="btn btn-primary"><?php echo $btn; ?></button>
                     <?php }?>

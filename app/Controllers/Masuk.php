@@ -1,9 +1,6 @@
 <?php namespace App\Controllers;
 
 use App\Models\Masuk_model;
-use App\Models\Surat_user_model;
-use App\Models\User_model;
-use CodeIgniter\I18n\Time;
 use Config\Services;
 
 class Masuk extends BaseController
@@ -21,7 +18,6 @@ class Masuk extends BaseController
         $data['arr'] = 'Add';
         $data['title'] = 'Form Surat';
         $modelMasuk = new Masuk_model();
-        //var_dump($modelMasuk->getMasuk());die();
         $data['masuk'] = $modelMasuk->getMasuk();
         Services::template('masuks/index', $data);
         }
@@ -30,8 +26,6 @@ class Masuk extends BaseController
         {
         $data['urlmethod'] = $this->modul.'/save';
         $data['arr'] = 'Add';
-        $modelUser = new User_model();
-        $data['users'] = $modelUser->getUsers();
         $data['title'] = 'Form Tambah Surat Masuk';
         Services::template('masuks/form', $data);
         }
@@ -39,11 +33,10 @@ class Masuk extends BaseController
         public function save()
         {
         $model = new Masuk_model();
-        $modelSurat =  new Surat_user_model();
+      
         $file = $this->request->getFile('file');
-        $myTime = new Time('now', 'Asia/Jakarta', 'en_ID');
 
-        if ($file !== NULL) {
+        if ($_FILES) {
               $file->move(ROOTPATH.'public/uploads');
               $getFile =  $file->getName();
         } else {
@@ -56,22 +49,6 @@ class Masuk extends BaseController
             'status' => $this->request->getPost('status'),
         ];
         $model->saveMasuk($data);
-        $idBaru = $model->insertID();
-
-        $users = $this->request->getPost('users');
-        if ($users) {
-          for ($i=0; $i < count($users) ; $i++) { 
-                  
-                $dataUser = [
-                        'surat_id' => $idBaru,
-                        'user_id' => $users[$i],
-                        'tgl_kirim' => $myTime,
-                        'pengirim' => session('name'),
-                    ];
-                    $modelSurat->saveMasukUser($dataUser);
-          }
-
-        }
         return redirect()->to('/masuk');
         }
 
@@ -83,9 +60,6 @@ class Masuk extends BaseController
         $data['title'] = 'Form Edit Surat';
         $modelRole = new Masuk_model();
         $data['masuk'] = $model->getMasuk($id)->getRow();
-        $modelUser = new User_model();
-        $data['users'] = $modelUser->getUsers();
-        //
         Services::template('masuks/form', $data);
         }
 
@@ -96,22 +70,19 @@ class Masuk extends BaseController
         $data['arr'] = 'Add';
         $data['title'] = 'Form View Surat';
         $data['v'] = "";
-        $modelRole = new Masuk_model();
         $data['masuk'] = $model->getMasuk($id)->getRow();
         Services::template('masuks/form', $data);
         }
 
         public function update()
         {
-               // var_dump($this->request->getPost('users'));die();
+        //var_dump($_FILES);die();
         $model = new Masuk_model();
         $id = $this->request->getPost('id');
-        $modelSurat =  new Surat_user_model();
-        
-        $myTime = new Time('now', 'Asia/Jakarta', 'en_ID');
         $cek = $model->where('id',$id)->first();
-        if ($_FILES) {
-                $file = $this->request->getFile('file');
+        $file = $this->request->getFile('file');
+        if ($file !== NULL) {
+                
                 if ($cek["file"] !== "") {
                         unlink(ROOTPATH.'public/uploads/'.$cek["file"]);
                 }
@@ -129,41 +100,28 @@ class Masuk extends BaseController
         ];
         
         $model->updateMasuk($data,$id);
-
-        $users = $this->request->getPost('users');
-        $tgl_kirim = $this->request->getPost('tgl_kirim');
-        if ($users) {
-          for ($i=0; $i < count($users) ; $i++) { 
-                  
-                $dataUser = [
-                
-                        'user_id' => $users[$i],
-                        'tgl_kirim' => $myTime,
-                        'pengirim' => session('name'),
-                    ];
-                    $modelSurat->updateMasukUser($dataUser,$id,$tgl_kirim);
-          }
-
-        }
         return  redirect()->to('/masuk');
         }
         
         public function delete($id)
         {
+              var_dump($id);die();
                 try {
                         $model = new Masuk_model();
-                        $modelSurat =  new Surat_user_model();
-                        $suratUser = $modelSurat->getSuratUser($id)->getRow();
-                        $cek = $model->where('id',$suratUser->id)->first();
+                        $cek = $model->where('id',$id)->first();
+                        var_dump($cek);die();
                         if ($cek["file"] !== "") {
                                 unlink(ROOTPATH.'public/uploads/'.$cek["file"]);
                         }
-                        $model->deleteMasuk($cek["id"]);
+                        $model->deleteMasuk($id);
+                        return redirect()->to('/masuk');
+
                 } catch (\Throwable $th) {
-                        session()->setFlashData('danger', 'Pesan : Tidak bisa dihapus karena  '.$th->getMessage());
+                        session()->setFlashData('error', 'Pesan : Tidak bisa dihapus karena  '.$th->getMessage());
+                        return redirect()->to('/masuk');
+
                 }
         
-        return redirect()->to('/masuk');
         }
 
 }

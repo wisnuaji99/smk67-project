@@ -25,9 +25,6 @@
                       <th>No</th>
                       <th>Judul Surat </th>
                       <th>File </th>
-                      <th>Dikirim Ke</th>
-                      <th>Pengirim </th>
-                      <th>Tgl Kirim </th>
                       <th>Status Surat</th>
                       <th>Action</th>
                       </tr>
@@ -37,9 +34,6 @@
                       <th>No</th>
                       <th>Judul Surat </th>
                       <th>File </th>
-                      <th>Dikirim Ke</th>
-                      <th>Pengirim </th>
-                      <th>Tgl Kirim </th>
                       <th>Status Surat</th>
                       <th>Action</th>
                       </tr>
@@ -53,9 +47,9 @@
                                 <td><?php echo $no++ ?></td>
                                 <td><?php echo $row['judul']?></td>
                                 <td><?php echo $row['file']?></td>
-                                <td><?php echo $row['user']?></td>
-                                <td><?php echo $row['pengirim']?></td>
-                                <td><?php echo str_replace('`', '',$row['tgl_kirim'])?></td>
+                                <!-- <td><?php //echo $row['user']?></td>
+                                <td><?php //echo $row['pengirim']?></td>
+                                <td><?php //echo str_replace('`', '',$row['tgl_kirim'])?></td> -->
                                 <td><?php
                                           if ($row['status'] == 1) {
                                             echo "dikirim";
@@ -75,7 +69,7 @@
                                     <a  class="btn btn-info" href="/masuk/view/<?php echo $row['id'] ?>"
                                     data-toggle="tooltip" data-html="true" title="Tombol View"
                                     ><i class="fas fa-eye"></i></a>
-                                    <button  class="btn btn-danger remove" id="<?php echo $row['ids']?>" type="submit" value="<?php echo $row['id']?>"
+                                    <button  class="btn btn-danger remove" id="<?php echo $row['id']?>" type="submit" value="<?php echo $row['id']?>"
                                     data-toggle="tooltip" data-html="true" title="Tombol Hapus">
                                     <i class="fas fa-trash" tool></i> </button>
                                 </td>
