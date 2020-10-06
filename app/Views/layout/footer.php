@@ -74,7 +74,10 @@
         });      
 
         // Select2 Multiple
-        $('.select2-multiple').select2();
+        $('.select2-multiple').select2({
+          placeholder: "Pilih Penerima",
+          allowClear: true
+        });
    </script>
 
     <script>

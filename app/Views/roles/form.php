@@ -1,7 +1,7 @@
 <?php
 
 $id = isset($role) ? $role->id : "";
-$role = isset($role) ? $role->name_role : "";
+$name_role = isset($role) ? $role->name_role : "";
 $v = isset($v) ? "readonly" : "";
 $btn = isset($role) ? "Ubah" : "Simpan";
 ?>
@@ -29,7 +29,7 @@ $btn = isset($role) ? "Ubah" : "Simpan";
                   <div class="form-group">
                       <label for="role">Name</label>
                       <input type="text" class="form-control" id="role" name="role" aria-describedby="role"
-                        placeholder="Enter name" value="<?php echo $role?>" <?php echo $v; ?> required>
+                        placeholder="Enter name" value="<?php echo $name_role?>" <?php echo $v; ?> required>
                       <small id="role" class="form-text text-muted">Input role name  properly.</small>
                     </div>
                     <?php if ($v == "") { ?>

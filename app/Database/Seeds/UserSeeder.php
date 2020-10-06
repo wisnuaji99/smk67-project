@@ -12,7 +12,6 @@ class UserSeeder extends Seeder
 			'email' => 'snuaji89@gmail.com',
 			'no_tel'=> '083312093832',
 			'password' => '$2y$10$c6gaztHTng6q03oSn6LHfe4oLIg0q6N/LyTYC9gT1PKSfpkSUdmmK',
-			'role_id' => 1
 
         ];
 
@@ -22,7 +21,6 @@ class UserSeeder extends Seeder
 			'email' => 'asisten91@gmail.com',
 			'no_tel'=> '083312093832',
 			'password' => '$2y$10$c6gaztHTng6q03oSn6LHfe4oLIg0q6N/LyTYC9gT1PKSfpkSUdmmK',
-			'role_id' => 2
         ];
 
         $data3 = [
@@ -31,7 +29,6 @@ class UserSeeder extends Seeder
 			'email' => 'snuaji99@gmail.com',
 			'no_tel'=> '083312093832',
 			'password' => '$2y$10$c6gaztHTng6q03oSn6LHfe4oLIg0q6N/LyTYC9gT1PKSfpkSUdmmK',
-			'role_id' => 3
         ];
 
         $this->db->table('users')->insert($data1);

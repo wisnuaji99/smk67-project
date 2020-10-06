@@ -43,7 +43,7 @@
             <h6 class="collapse-header">Letters</h6>
             <a class="collapse-item" href="<?php echo base_url().'/masuk';?>">Input Letters</a>
             <a class="collapse-item" href="<?php echo base_url().'/respon';?>">Response Letters</a>
-            <a class="collapse-item" href="<?php echo base_url().'/template';?>">Templates</a>
+            <a class="collapse-item" href="<?php echo base_url().'/backup';?>">Backup Letters</a>
           </div>
         </div>
       </li>

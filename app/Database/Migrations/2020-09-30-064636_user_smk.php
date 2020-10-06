@@ -2,7 +2,7 @@
 
 use CodeIgniter\Database\Migration;
 
-class UsersTable extends Migration
+class UserSmk extends Migration
 {
 	public function up()
 	{
@@ -14,36 +14,36 @@ class UsersTable extends Migration
 				'unsigned'       => TRUE,
 				'auto_increment' => TRUE
 			],
-		 	'nik'       => [
-                 'type'           => 'VARCHAR',
-                 'constraint'     => '100',
-    	         'unique'         => TRUE,
-        	 ]	,
 			'name' => [
 				'type' => 'VARCHAR',
 				'constraint' => 100,
 			],
 			
-			'email' => [
+			'alamat' => [
 				'type' => 'VARCHAR',
 				'constraint' => 100,
+			],
+			'role_id' => [
+				'type' => 'INT',
+				'constraint' => 11,
 			],
 			'password' => [
 				'type' => 'VARCHAR',
-				'constraint' => 100,
+				'constraint' => 25,
 			],
 			'no_tel' => [
 				'type' => 'VARCHAR',
-				'constraint' => 12,
+				'constraint' => 15,
 			],
 			
 			
 
 		]);
-		$this->forge->dropTable('users',TRUE);
+		$this->forge->dropTable('users_smk',TRUE);
 		//$this->forge->addKey('id');
 		//$this->forge->addForeignKey('role_id','roles','id','CASCADE','CASCADE');;
-		$this->forge->createTable('users');
+		$this->forge->createTable('users_smk');
+	
 	}
 
 	//--------------------------------------------------------------------

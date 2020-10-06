@@ -4,14 +4,23 @@ use CodeIgniter\Model;
 class User_model extends Model {
 
     //  menunjukkan bahwa model ini mengambil data pada table roles di database
-    protected $table = 'users_smk';
+    protected $table = 'users';
 
     public function getUsers($id = false)
     {
         if ($id === false) {
-            return $this->db->table($this->table)->select('users_smk.*, roles.name_role')->join('roles','roles.id=users.role_id')->get()->getResultArray();
+            return $this->db->table($this->table." a ")
+            ->select(' a.* , b.name_role AS roles')
+            ->join('user_roles c','a.id=c.user_id','left')
+            ->join('roles b','c.role_id=b.id','left')
+            ->groupBy(["a.id",])
+            ->get()->getResultArray();
         } else {
-            return $this->db->table($this->table)->select('users_smk.*, roles.name_role')->join('roles','roles.id=users.role_id')->getWhere(['users.id' => $id]);
+            return $this->db->table($this->table." a " )
+            ->select('a.*, b.name_role AS roles, b.id as role_id')
+            ->join('user_roles c','a.id=c.user_id','left')->join('roles b','c.role_id=b.id','left')
+            ->groupBy(["a.id",])->getWhere(['a.id' => $id]);
+            
         }
         
     }

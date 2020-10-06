@@ -16,33 +16,54 @@
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary"><?php echo $title; ?></h6>
-               
+                  <a href="/user/add" class="btn btn-success pull-right"> Add Data</a>
                 </div>
                 <div class="table-responsive p-3">
                   <table class="table align-items-center table-flush table-hover" id="dataTableHover">
                     <thead class="thead-light">
                       <tr>
                       <th>No</th>
+                      <th>NIK</th>
                       <th>Name</th>
-                     
+                      <th>Email</th>
+                      <th>Level User</th>
+                      <th>Nomor Telepon</th>
+                      <th>Action</th>
                       </tr>
                     </thead>
                     <tfoot>
                       <tr>
                       <th>No</th>
+                      <th>NIK</th>
                       <th>Name</th>
-                  
+                      <th>Email</th>
+                      <th>Level User</th>
+                      <th>Nomor Telepon</th>
+                      <th>Action</th>
                       </tr>
                     </tfoot>
                     <tbody>
                       
                       <?php 
                         $no = 1;
-                        foreach($roles as $row) { ?>
+                        foreach($users as $row) { ?>
                             <tr>
                                 <td><?php echo $no++ ?></td>
-                                <td><?php echo $row['name_role']?></td>
-                               
+                                <td><?php echo $row['nik']?></td>
+                                <td><?php echo $row['name']?></td>
+                                <td><?php echo $row['email']?></td>
+                                <td><?php echo $row['roles']?></td>
+                                <td><?php echo $row['no_tel']?></td>
+                                <td><a class="btn btn-warning" href="/user/edit/<?php echo $row['id'] ?>"
+                                data-toggle="tooltip" data-html="true" title="Tombol Edit"
+                                ><i class="fas fa-pen"></i></a>
+                                    <a  class="btn btn-info" href="/user/view/<?php echo $row['id'] ?>"
+                                    data-toggle="tooltip" data-html="true" title="Tombol View"
+                                    ><i class="fas fa-eye"></i></a>
+                                    <button  class="btn btn-danger remove" id="<?php echo $row['id']?>" type="submit" value="<?php echo $row['id']?>"
+                                    data-toggle="tooltip" data-html="true" title="Tombol Hapus">
+                                    <i class="fas fa-trash" tool></i> </button>
+                                </td>
                             </tr>
                         <?php }?>
                       
@@ -85,7 +106,7 @@ console.log(id);
     if (isConfirm) {
 
       $.ajax({
-        url: '/role/delete/'+id,
+        url: '/user/delete/'+id,
         type: 'POST',
         error: function() {
 
