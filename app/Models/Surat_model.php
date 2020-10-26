@@ -1,15 +1,28 @@
 <?php namespace app\models;
-use codeigniter\model;
+use CodeIgniter\model;
 
 class Surat_model extends model {
 
     protected $table = 'surat_user';
     public function getSurat($id = false)
     {
-        if ($id === false){
-            return $this->findAll();
-        }else{
-            return $this->getWhere(['id' => $id]);
+        
+        if ($id === false) {
+
+            return $this->db->table($this->table." a ")
+            ->select('a.*, DATE_FORMAT(a.tgl_kirim, "%W,%M %e %Y, %r") as waktu ,b.judul AS judul_surat, b.file AS file_surat, c.name AS nama_penerima')
+            ->join('surat_masuk b','a.surat_id=b.id','left')
+            ->join('users c','a.user_id = c.id','left')
+            ->get()->getResultArray();
+
+        } else {
+
+            return $this->db->table($this->table." a " )
+            ->select('a.*, DATE_FORMAT(a.tgl_kirim, "%W,%M %e %Y, %r") as waktu, b.judul AS judul_surat, b.file AS file_surat, c.name AS nama_penerima')
+            ->join('surat_masuk b','a.surat_id=b.id','left')
+            ->join('users c','a.user_id = c.id','left')
+            ->getWhere(['a.id' => $id]);
+            
         }
 
 

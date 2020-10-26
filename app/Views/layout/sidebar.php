@@ -42,8 +42,10 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Letters</h6>
             <a class="collapse-item" href="<?php echo base_url().'/masuk';?>">Input Letters</a>
-            <a class="collapse-item" href="<?php echo base_url().'/respon';?>">Response Letters</a>
-            <a class="collapse-item" href="<?php echo base_url().'/backup';?>">Backup Letters</a>
+            <a class="collapse-item" href="<?php echo base_url().'/template';?>">Response Letters</a>
+            <a class="collapse-item" href="<?php echo base_url().'/backup';?>">Output Letters</a>
+            <a class="collapse-item" href="<?php echo base_url().'/surat';?>">Letters Sent</a>
+            <a class="collapse-item" href="<?php echo base_url().'/';?>">Letters Received </a>
           </div>
         </div>
       </li>

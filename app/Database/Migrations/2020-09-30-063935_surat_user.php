@@ -29,6 +29,10 @@ class SuratUser extends Migration
 				'type'           => 'VARCHAR',
 				'constraint'	 => '45',
 			]	,
+			'status'       => [
+				'type'           => 'INT',
+				'constraint'	 => '11',
+			]	,
 		]);
 		$this->forge->dropTable('surat_user',TRUE);
 		//$this->forge->addKey('id');

@@ -1,90 +1,118 @@
 <?php namespace App\Controllers;
 
 use App\models\Surat_model;
+use App\Models\Masuk_model;
+use App\Models\User_model;
+use Config\Services;
+use CodeIgniter\I18n\Time;
 
 class Surat extends BaseController
 {
+    protected $modul = 'surat';
     public function __construct(){
     helper('form');
     helper('file');   
     }
     
     public function index(){
+            $data['arr'] = 'Letters Sent';
+            $data['title'] = 'Form Pengiriman Surat'; 
             $model = new Surat_model();
-            $data['user3'] = $model->getMasuk();
-            return view('surat/index',$data);
+            $data['surats'] = $model->getSurat();
+            Services::template('surats/index',$data);
     }
 
     public function add(){
-            return view('surat/add');
+            $modelUser = new User_model();
+            $modelMasuk = new Masuk_model();
+            $data['users'] = $modelUser->getUsers();
+            $data['masuks'] = $modelMasuk->getMasuk();
+            $data['urlmethod'] = $this->modul.'/save';
+            $data['arr'] = 'add';
+            $data['title'] = 'Form Tambah Pengiriman Surat'; 
+            Services::template('surats/form',$data);
     }
 
     public function save(){
         $model= new Surat_model();
-        $file= $this->request->getFile('file');
-        if ($file !== NULL){
-            $file->move(ROOTPATH.'public/uploads');
-            $getFile = $file->getName();
-        } else{
-            $getFile = NULL;
+        $myTime = new Time('now', 'Asia/Jakarta', 'en_ID');
+        $pengirim = session('name');
+        $penerima = $this->request->getPost('penerima');
+        $surat = $this->request->getPost('surat');
+
+        for ($i=0; $i < count($penerima) ; $i++) { 
+                $data =[
+                        'surat_id' => $surat,
+                        'user_id' => $penerima[$i],
+                        'tgl_kirim' => $myTime,
+                        'pengirim' => $pengirim,
+                        'status' => 1,
+                    ];
+            
+                $model->saveSurat($data);
         }
-
-        $data =[
-            'judul' => $this->request->getPost('judul'),
-            'file' => $getFile,
-            'status' => $this->request->getPost('status'),
-        ];
-
-        $model->saveSurat($data);
-        return redirect()->to ('/Surat');
+        session()->setFlashData('success', 'Berhasil Mensave Surat');
+        return redirect()->to ('/surat');
     }
 
-        public function edit($id){
+    public function edit($id){
         $model = new Surat_model();
-        $data['surat'] = $model->getMasuk($id)->getRow();
-        return view('surat/edit',$data);
-    }
+        $modelUser = new User_model();
+        $modelMasuk = new Masuk_model();
+        $data['users'] = $modelUser->getUsers();
+        $data['masuks'] = $modelMasuk->getMasuk();
+        $data['urlmethod'] = $this->modul.'/update';
+        $data['arr'] = 'add';
+        $data['title'] = 'Form Edit Pengiriman Surat'; 
+        $data['surat'] = $model->getSurat($id)->getRow();
+        Services::template('surats/form',$data);
+     }
 
         public function view($id){
         $model = new Surat_model();
+        $data['urlmethod'] = $this->modul.'/save';
+        $data['title'] = 'Form View Pengiriman Surat';
+        $data['arr'] = 'add';
+        $data['v'] = "";
         $data['surat'] = $model->getSurat($id)->getRow();
-        return view('surat/view',$data);
+        Services::template('surats/form',$data);
     }
 
-        public function update(){
-            $model = new Surat_model();
-            $id = $this->request->getPost('id');
-            $file = $this->request->getFile('file');
-            $cek = $model->where('id',$id)->first();
-            if ($file !== NULL) {
-                    unlink(ROOTPATH.'public/uploads/'.$cek["file"]);
-                    $file->move(ROOTPATH.'public/uploads');
-                    $getFile = $file->getName();
-            } else {
-                    $getFile = $cek["file"];
-            }
-            
-            $data = ['judul' => $this->request->getPost('judul'),
-                    'file' => $getFile,
-                    'status' => $this->request->getPost('status'),
-    
-    
-    
-            ];
-            
-            $model->updateSurat($data,$id);
-            return  redirect()->to('/surat');
+    public function update(){
+        $model= new Surat_model();
+        $myTime = new Time('now', 'Asia/Jakarta', 'en_ID');
+        $pengirim = session('name');
+        $penerima = $this->request->getPost('penerima');
+        $surat = $this->request->getPost('surat');
+        $id = $this->request->getPost('id');
+
+        for ($i=0; $i < count($penerima) ; $i++) { 
+                $data =[
+                        'surat_id' => $surat,
+                        'user_id' => $penerima[$i],
+                        'tgl_kirim' => $myTime,
+                        'pengirim' => $pengirim,
+                        'status' => 1,
+                        ];
+                    
+                $model->updateSurat($data, $id);
+        }
+                session()->setFlashData('info', 'Berhasil Mengupdate Surat');
+                return redirect()->to ('/surat');
     }
 
-            public function delete($id){
-                try {
-                        $model = new Surat_model();
-                        $model->deleteSurat($id);
-                } catch (\Throwable $th) {
-                        session()->setFlashData('danger', 'Pesan : Tidak bisa dihapus karena  '.$th->getMessage());
-                }
+    public function delete($id){
+        try {
+                $model = new Surat_model();
+                $model->deleteSurat($id);
+                session()->setFlashData('error', 'Berhasil Menghapus Data');
+                return redirect()->to('/surat');
+        } catch (\Throwable $th) {
+                session()->setFlashData('error', 'Pesan : Tidak bisa dihapus karena  '.$th->getMessage());
+                return redirect()->to('/surat');
+        }
         
-        return redirect()->to('/surat');
+        
     }
 
     

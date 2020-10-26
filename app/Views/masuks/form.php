@@ -3,7 +3,6 @@
 $id = isset($masuk) ? $masuk->id : "";
 $judul = isset($masuk) ? $masuk->judul : "";
 $file = isset($masuk) ? $masuk->file : "";
-$status = isset($masuk) ? $masuk->status : "";
 
 $v = isset($v) ? "readonly" : "";
 $btn = isset($masuk) ? "Ubah" : "Simpan";
@@ -54,51 +53,7 @@ $btn = isset($masuk) ? "Ubah" : "Simpan";
                               <i class="fa fa-download"></i> Download FIle Sebelumnya</a>
                       <?php } ?>
                     </div>
-                    </div>
-                    <div class="form-group">
-                    <label for="select2Single">Status Surat</label>
-                    <?php if ($v !== "") { 
-                      
-                      if ($status == 1) {
-                            echo "Dikirim";
-                          } elseif ($status == 2) {
-                            echo "Dibaca";
-                          } elseif ($status == 3) {
-                            echo "Prmintaan Surat Balasan";
-                          } 
-
-                     } else { ?>
-                      
-                      <select class="select2-single form-control" name="status" id="select2Single">
-                      <?php if (isset($masuk)) { ?>
-
-                        <option value="<?php echo $status; ?>">
-                          <?php 
-                          if ($status == 1) {
-                            echo "Dikirim";
-                          } elseif ($status == 2) {
-                            echo "Dibaca";
-                          } elseif ($status == 3) {
-                            echo "Prmintaan Surat Balasan";
-                          } 
-                           
-                          ?>
-                        </option>
-                          
-                      <?php } else { ?>
-                        
-                        <option value="">Select Status</option>
-
-                      <?php   } ?>
-                     
-                      <option value="1">Dikirim</option>
-                      <option value="2">Dibaca</option>
-                      <option value="3">Permintaan Surat Balasan</option>
-                    </select>
-
-                    <?php }?>
-                   
-                  </div>
+                        </div>
 
                   
                     <?php if ($v == "") { ?>

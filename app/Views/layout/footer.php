@@ -69,7 +69,7 @@
 
         // Select2 Single  with Placeholder
         $('.select2-single-placeholder').select2({
-          placeholder: "Select a Province",
+          placeholder: "Pilih Surat",
           allowClear: true
         });      
 
@@ -98,7 +98,9 @@
               toastr.warning("<?php echo session()->getFlashData('warning'); ?>");
           <?php } else if (session()->getFlashData('info')) {?>
               toastr.info("<?php echo session()->getFlashData('info'); ?>");
-          <?php }?>
+          <?php } else if (session()->keepFlashdata('error')){ ?>
+              toastr.error("<?php echo session()->keepFlashData('error'); ?>");
+          <?php } ?>
 
 
 

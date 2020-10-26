@@ -6,27 +6,30 @@ use App\models\User_roles_model;
 use app\models\Surat_user_model;
 use Config\Services;
 
-class User extends BaseController
+class Profile extends BaseController
 {
-        protected $modul = 'user';
+	protected $modul = 'profile';
 	public function index()
 	{
         $model = new User_model();
-        $data['users'] = $model->getUsers();
-        $data['title'] = 'Users List';
-        $data['arr'] = 'Users';
-        Services::template('users/index', $data);
-        
-        }
-        
-        public function add()
+        $data['user'] = $model->getUsers(session('id'))->getRow();
+        $data['title'] = 'My Profile';
+        $data['arr'] = 'Profile';
+        $data['v'] = "";
+        $data['urlmethod'] = $this->modul.'/update';
+        $modelRole = new Role_model();
+        $data['roles'] = $modelRole->getRoles();
+        Services::template('profile/form', $data);
+    }
+
+    public function add()
         {
         $data['urlmethod'] = $this->modul.'/save';
         $data['arr'] = 'Add';
-        $data['title'] = 'Form User';
+        $data['title'] = 'Form Profile';
         $modelRole = new Role_model();
         $data['roles'] = $modelRole->getRoles();
-        Services::template('users/form', $data);
+        Services::template('profile/form', $data);
        
         }
 
@@ -56,22 +59,22 @@ class User extends BaseController
                 $modelUserRole->saveUserRoles($dataUser);
                      
         }
-        session()->setFlashData('success', 'Berhasil Mensave User');
-        return redirect()->to('/user');
+        session()->setFlashData('success', 'Berhasil Mensave Profile');
+        return redirect()->to('/profile');
         }
 
-        public function edit($id)
+        public function edit()
         {
         $model = new User_model();
-        $data['user'] = $model->getUsers($id)->getRow();
+        $data['user'] = $model->getUsers(session('id'))->getRow();
         $data['urlmethod'] = $this->modul.'/update';
         $data['arr'] = 'Edit';
-        $data['title'] = 'Form User';
+        $data['title'] = 'Form Profile';
         $modelRole = new Role_model();
         $data['roles'] = $modelRole->getRoles();
-        Services::template('users/form',$data);
+        Services::template('profile/form',$data);
         }
-        
+
         public function view($id)
         {
         $model = new User_model();
@@ -79,13 +82,12 @@ class User extends BaseController
         $data['urlmethod'] = $this->modul;
         $data['arr'] = 'View';
         $data['v'] = "";
-        $data['title'] = 'View User';
+        $data['title'] = 'View Profile';
         $modelRole = new Role_model();
         $data['roles'] = $modelRole->getRoles();
-        Services::template('users/form', $data);
+        Services::template('profile/form', $data);
         }
 
-        
         public function update()
         {
         $model = new User_model();
@@ -124,12 +126,11 @@ class User extends BaseController
                 $modelUserRole->updateUserRoles($dataUser,$id);
                 }
                 session()->setFlashData('success', 'Berhasil Mengupdate Data');
-                 return  redirect()->to('/user');
+                 return  redirect()->to('/profile');
                  
          
         }
 
-        
         public function delete($id)
         {
                 try {
@@ -143,10 +144,8 @@ class User extends BaseController
                 }
         
         
-        return redirect()->to('/user');
+        return redirect()->to('/profile');
         }
-
-       
-
+	//--------------------------------------------------------------------
 
 }

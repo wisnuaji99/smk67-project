@@ -35,5 +35,19 @@ class Filters extends BaseConfig
 	// List filter aliases and any before/after uri patterns
 	// that they should run on, like:
 	//    'isLoggedIn' => ['before' => ['account/*', 'profiles/*']],
-	public $filters = [];
+	public $filters = [
+		'login' => [
+			'before' => [
+				'user',
+				'user/*',
+				// 'api/product',
+				// 'api/category/*',
+				// 'api/category',
+				// 'api/customer/*',
+				// 'api/customer',
+				// 'api/supplier/*',
+				// 'api/supplier',
+			],
+		],
+	];
 }

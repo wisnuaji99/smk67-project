@@ -25,7 +25,7 @@
                       <th>No</th>
                       <th>Judul Surat </th>
                       <th>File </th>
-                      <th>Status Surat</th>
+                      <!-- <th>Status Surat</th> -->
                       <th>Action</th>
                       </tr>
                     </thead>
@@ -34,7 +34,7 @@
                       <th>No</th>
                       <th>Judul Surat </th>
                       <th>File </th>
-                      <th>Status Surat</th>
+                      <!-- <th>Status Surat</th> -->
                       <th>Action</th>
                       </tr>
                     </tfoot>
@@ -50,14 +50,13 @@
                                 <!-- <td><?php //echo $row['user']?></td>
                                 <td><?php //echo $row['pengirim']?></td>
                                 <td><?php //echo str_replace('`', '',$row['tgl_kirim'])?></td> -->
-                                <td><?php
-                                          if ($row['status'] == 1) {
-                                            echo "dikirim";
-                                          } else if($row['status']== 2) {
-                                            echo "dibaca";
-                                          } else if ($row['status']== 3) {
-                                            echo "Permintaan Surat Balasan";
-                              }?></td>
+                                <!-- <td><?php
+                                          // if ($row['status'] == 1) {
+                                          //   echo "dikirim";
+                                          // } else if($row['status']== 2) {
+                                          //   echo "dibaca";
+                                          // } else if ($row['status']== 3) {
+                                          //   echo "Permintaan Surat Balasan";}?></td> -->
                                 <td>
                                 <a class="btn btn-success" 
                                 href="<?php echo base_url().'/uploads/'.$row['file']?>"  data-toggle="tooltip" data-html="true" 
@@ -69,7 +68,7 @@
                                     <a  class="btn btn-info" href="/masuk/view/<?php echo $row['id'] ?>"
                                     data-toggle="tooltip" data-html="true" title="Tombol View"
                                     ><i class="fas fa-eye"></i></a>
-                                    <button  class="btn btn-danger remove" id="<?php echo $row['id']?>" type="submit" value="<?php echo $row['id']?>"
+                                  <button class="btn btn-danger remove" id="<?php echo $row['id']?>" type="submit" value="<?php echo $row['id']?>"
                                     data-toggle="tooltip" data-html="true" title="Tombol Hapus">
                                     <i class="fas fa-trash" tool></i> </button>
                                 </td>
@@ -113,22 +112,29 @@ console.log(id);
 
   function(isConfirm) {
     if (isConfirm) {
+      window.location.href = '/masuk/delete/'+id;
+      // $.ajax({
+      //   url: '/masuk/delete/'+id,
+      //   type: 'POST',
+      //   error: function() {
+            
+      //       alert('Something is wrong');
 
-      $.ajax({
-        url: '/masuk/delete/'+id,
-        type: 'POST',
-        error: function() {
+      //    },
 
-            alert('Something is wrong');
+      //    success: function(data) {
+      //     // console.log(<?php //echo session()->getFlashData('error'); ?>);
+      //     // window.location.href = '/masuk/delete/'+id;
+          
+      //         // swal({ title: "Deleted!", 
+      //         // text: <?php //echo session()->getFlashData('error'); ?>,
+      //         // timer: 1500,
+      //         // showConfirmButton: false,
+      //         //  type: "success" }, function(){ location.reload(); });
+           
+      //      alert(<?php // echo session()->getFlashData('error'); ?>)
 
-         },
-
-         success: function(data) {
-
-            console.log(data);
-            swal({ title: "Deleted!", text: "Your data has been deleted.", type: "success" }, function(){ location.reload(); });
-
-         }});
+      //    }});
 
     } else {
             swal("Cancelled", "Your imaginary file is safe :)", "error");

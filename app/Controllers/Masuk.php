@@ -1,6 +1,7 @@
 <?php namespace App\Controllers;
 
 use App\Models\Masuk_model;
+use App\Models\Surat_model;
 use Config\Services;
 
 class Masuk extends BaseController
@@ -10,6 +11,7 @@ class Masuk extends BaseController
         {
                 helper('form');
                 helper('file');
+                
         }
 
 	public function index()
@@ -46,9 +48,10 @@ class Masuk extends BaseController
         $data = [
             'judul' => $this->request->getPost('judul'),
             'file' => $getFile,
-            'status' => $this->request->getPost('status'),
+            //'status' => $this->request->getPost('status'),
         ];
         $model->saveMasuk($data);
+        session()->setFlashData('warning', 'Berhasil Menyimpan Data');
         return redirect()->to('/masuk');
         }
 
@@ -95,28 +98,41 @@ class Masuk extends BaseController
         
         $data = ['judul' => $this->request->getPost('judul'),
                 'file' => $getFile,
-                'status' => $this->request->getPost('status'),
+                //'status' => $this->request->getPost('status'),
 
         ];
         
         $model->updateMasuk($data,$id);
+        session()->setFlashData('info', 'Berhasil Mengupdate Data');
+     
         return  redirect()->to('/masuk');
         }
         
         public function delete($id)
         {
-              var_dump($id);die();
                 try {
                         $model = new Masuk_model();
-                        $cek = $model->where('id',$id)->first();
-                        var_dump($cek);die();
-                        if ($cek["file"] !== "") {
-                                unlink(ROOTPATH.'public/uploads/'.$cek["file"]);
+                        $suratModel = new Surat_model();
+                        $surat = $suratModel->where('surat_id', $id)->first();
+//  //var_dump($id);die();
+//  var_dump($surat);die();
+                        if ($surat== NULL) {
+                                $cek = $model->where('id',$id)->first();
+                        
+                                if (file_exists(ROOTPATH.'public/uploads/'.$cek["file"])) {
+                                        unlink(ROOTPATH.'public/uploads/'.$cek["file"]);
+                                }
                         }
-                        $model->deleteMasuk($id);
+                        
+                       $model->deleteMasuk($id);
+                      
+                        session()->setFlashData('error', 'Berhasil Menghapus Data');
+                        //var_dump(session()->getFlashData('error'));die();
                         return redirect()->to('/masuk');
 
                 } catch (\Throwable $th) {
+                        
+             
                         session()->setFlashData('error', 'Pesan : Tidak bisa dihapus karena  '.$th->getMessage());
                         return redirect()->to('/masuk');
 

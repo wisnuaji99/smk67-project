@@ -10,21 +10,24 @@ class SuratUserSeeder extends Seeder
             'user_id' => 1,
             'surat_id'  => 1,
             'tgl_kirim' => '2020-09-28 10:12:31',
-            'pengirim' => 'wisnu'
+            'pengirim' => 'wisnu',
+            'status' => '1'
         ];
 
         $data2 = [
             'user_id' => 2,
             'surat_id'  => 2,
             'tgl_kirim' => '2019-11-11 10:10:31',
-            'pengirim' => 'irvan'
+            'pengirim' => 'irvan',
+            'status' => '2'
         ];
 
         $data3 = [
             'user_id' => 3,
             'surat_id'  => 3,
             'tgl_kirim' => '2020-05-20 05:10:15',
-            'pengirim' => 'gina'
+            'pengirim' => 'gina',
+            'status' => '3'
         ];
 
         $this->db->table('surat_user')->insert($data1);

@@ -28,7 +28,7 @@ class Masuk_model extends Model {
     public function deleteMasuk($id)
     {
         $query = $this->db->table($this->table)->delete(array('id' => $id));
-        var_dump($query);die();
+        //var_dump($query);die();
         if ( !$query)
         {
                         return $this->db->error();
