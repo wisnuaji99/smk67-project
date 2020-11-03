@@ -14,6 +14,11 @@ class SuratBackup extends Migration
 				'unsigned'       => TRUE,
 				'auto_increment' => TRUE
 			],
+			'nomor'       => [
+				'type'           => 'VARCHAR',
+				'constraint'     => '200',
+				'unique'         => TRUE,
+			],
 		 	'judul'       => [
                  'type'           => 'VARCHAR',
                  'constraint'     => '45',

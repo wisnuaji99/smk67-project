@@ -7,12 +7,12 @@ class AllSeeder extends Seeder
 	public function run()
 	{
         $this->call('UserSeeder');
-        $this->call('RolesSeeder');
-        $this->call('UserRoleSeeder');
-        $this->call('SuratBackupSeeder');
-        $this->call('SuratMasukSeeder');
-        $this->call('SuratUserSeeder');
-        $this->call('TemplateSeeder');
-        $this->call('UserSmkSeeder');
+        // $this->call('RolesSeeder');
+        // $this->call('UserRoleSeeder');
+        // $this->call('SuratBackupSeeder');
+        // $this->call('SuratMasukSeeder');
+        // $this->call('SuratUserSeeder');
+        // $this->call('TemplateSeeder');
+        // $this->call('UserSmkSeeder');
 	}
 }

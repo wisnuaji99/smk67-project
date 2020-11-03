@@ -18,6 +18,8 @@
       <div class="sidebar-heading">
         Features
       </div>
+
+      <?php if (session('role_id') === '4') {?>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
           aria-expanded="true" aria-controls="collapseBootstrap">
@@ -32,6 +34,8 @@
           </div>
         </div>
       </li>
+    <?php } ?>
+
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
           aria-controls="collapseForm">
@@ -41,11 +45,16 @@
         <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Letters</h6>
-            <a class="collapse-item" href="<?php echo base_url().'/masuk';?>">Input Letters</a>
-            <a class="collapse-item" href="<?php echo base_url().'/template';?>">Response Letters</a>
-            <a class="collapse-item" href="<?php echo base_url().'/backup';?>">Output Letters</a>
+
+            <?php if( session('role_id') === '1' || session('role_id') === '4') { ?>
+            <a class="collapse-item" href="<?php echo base_url().'/masuk';?>">Input Letters</a>    
             <a class="collapse-item" href="<?php echo base_url().'/surat';?>">Letters Sent</a>
-            <a class="collapse-item" href="<?php echo base_url().'/';?>">Letters Received </a>
+            <a class="collapse-item" href="<?php echo base_url().'/permintaan';?>">Resquest Letters</a>
+           <?php } if(session('role_id') === '4') { ?>
+            <a class="collapse-item" href="<?php echo base_url().'/backup';?>">Output Letters</a>
+           <?php } if( session('role_id') !== '1' ) { ?>
+            <a class="collapse-item" href="<?php echo base_url().'/receive';?>">Letters Received </a>
+           <?php }?>
           </div>
         </div>
       </li>

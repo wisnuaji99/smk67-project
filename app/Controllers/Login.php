@@ -30,7 +30,7 @@ class Login extends BaseController
 			session()->set("email", $cek_login['email']);
 			session()->set("password", $cek_login['password']);
 			session()->set("no_tel", $cek_login['no_tel']);
-			//session()->set("role_id", $cek_login['role_id']);
+			session()->set("role_id", $cek_login['role_id']);
 			return redirect()->to('/');
 		} else {
 			return redirect()->to('/login');

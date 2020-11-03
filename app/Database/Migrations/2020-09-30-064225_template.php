@@ -16,7 +16,8 @@ class Template extends Migration
 			],
 		 	'nomor'       => [
                  'type'           => 'VARCHAR',
-                 'constraint'     => '200',
+				 'constraint'     => '200',
+				 'unique'         => TRUE,
 			 ]	,
 			 'sifat'       => [
 				'type'           => 'VARCHAR',
@@ -37,6 +38,14 @@ class Template extends Migration
 				'type'           => 'VARCHAR',
 				'constraint'	 => '45',
 			]	,
+			'user_id'       => [
+				'type'           => 'INT',
+				'constraint'	 => '45',
+			]	,
+			'created_by'       => [
+				'type'           => 'VARCHAR',
+				'constraint'	 => '45',
+			]	,		
 		]);
 		$this->forge->dropTable('template',TRUE);
 		//$this->forge->addKey('id');

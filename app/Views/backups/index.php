@@ -1,10 +1,10 @@
  <!-- Container Fluid-->
  <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Surat Masuk</h1>
+            <h1 class="h3 mb-0 text-gray-800">Surat Backup</h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="<?php echo base_url('/'); ?>">Dashboard</a></li>
-              <li class="breadcrumb-item">Surat Masuk</li>
+              <li class="breadcrumb-item">Surat Backup</li>
               <li class="breadcrumb-item active" aria-current="page"><?php echo $arr; ?></li>
             </ol>
           </div>
@@ -16,7 +16,7 @@
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary"><?php echo $title; ?></h6>
-                  <a href="/masuk/add" class="btn btn-success pull-right"> Add Data</a>
+                  <a href="/backup/add" class="btn btn-success pull-right"> Add Data</a>
                 </div>
                 <div class="table-responsive p-3">
                   <table class="table align-items-center table-flush table-hover" id="dataTableHover">
@@ -26,6 +26,8 @@
                       <th>Nomor Surat</th>
                       <th>Judul Surat </th>
                       <th>File </th>
+                      <th>Disimpan Tanggal</th>
+                      <th>Disimpan Oleh</th>
                       <!-- <th>Status Surat</th> -->
                       <th>Action</th>
                       </tr>
@@ -36,6 +38,8 @@
                       <th>Nomor Surat</th>
                       <th>Judul Surat </th>
                       <th>File </th>
+                      <th>Disimpan Tanggal</th>
+                      <th>Disimpan Oleh</th>
                       <!-- <th>Status Surat</th> -->
                       <th>Action</th>
                       </tr>
@@ -44,15 +48,15 @@
                       
                       <?php 
                         $no = 1;
-                        foreach($masuk as $row) { ?>
+                        foreach($backup as $row) { ?>
                             <tr>
                                 <td><?php echo $no++ ?></td>
                                 <td><?php echo $row['nomor']?></td>
                                 <td><?php echo $row['judul']?></td>
                                 <td><?php echo $row['file']?></td>
-                                <!-- <td><?php //echo $row['user']?></td>
-                                <td><?php //echo $row['pengirim']?></td>
-                                <td><?php //echo str_replace('`', '',$row['tgl_kirim'])?></td> -->
+                                <!-- <td><?php //echo $row['user']?></td>-->
+                               <td><?php echo str_replace('`', '',$row['waktu'])?></td>
+                                <td><?php echo $row['disimpan_oleh']?></td>  
                                 <!-- <td><?php
                                           // if ($row['status'] == 1) {
                                           //   echo "dikirim";
@@ -65,10 +69,10 @@
                                 href="<?php echo base_url().'/uploads/'.$row['file']?>"  data-toggle="tooltip" data-html="true" 
                                 title="Tombol Download File" download>
                               <i class="fa fa-download"></i></a>  
-                                <a class="btn btn-warning" href="/masuk/edit/<?php echo $row['id'] ?>"
+                                <a class="btn btn-warning" href="/backup/edit/<?php echo $row['id'] ?>"
                                 data-toggle="tooltip" data-html="true" title="Tombol Edit"
                                 ><i class="fas fa-pen"></i></a>
-                                    <a  class="btn btn-info" href="/masuk/view/<?php echo $row['id'] ?>"
+                                    <a  class="btn btn-info" href="/backup/view/<?php echo $row['id'] ?>"
                                     data-toggle="tooltip" data-html="true" title="Tombol View"
                                     ><i class="fas fa-eye"></i></a>
                                   <button class="btn btn-danger remove" id="<?php echo $row['id']?>" type="submit" value="<?php echo $row['id']?>"
@@ -115,7 +119,7 @@ console.log(id);
 
   function(isConfirm) {
     if (isConfirm) {
-      window.location.href = '/masuk/delete/'+id;
+      window.location.href = '/backup/delete/'+id;
       // $.ajax({
       //   url: '/masuk/delete/'+id,
       //   type: 'POST',

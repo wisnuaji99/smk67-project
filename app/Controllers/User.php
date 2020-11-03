@@ -3,7 +3,6 @@
 use App\Models\User_model;
 use App\Models\Role_model;
 use App\models\User_roles_model;
-use app\models\Surat_user_model;
 use Config\Services;
 
 class User extends BaseController
@@ -33,7 +32,6 @@ class User extends BaseController
         public function save()
         {
         $model = new User_model();
-        $modelUserRole = new User_roles_model();
         $nik = $this->request->getPost('nik');
         $cek = $model->where('nik',$nik)->first();
         if ($cek) {
@@ -46,14 +44,10 @@ class User extends BaseController
                         'email' => $this->request->getPost('email'),
                         'password' => $this->request->getPost('password'),
                         'no_tel' => $this->request->getPost('no_tel'),
+                        'role_id' => $this->request->getPost('role'),
                 ];
                 $model->saveUser($data);
-                $user_id = $model->insertID();
-                $dataUser = [
-                                'role_id' => $this->request->getPost('role'),
-                                'user_id' => $user_id
-                         ];
-                $modelUserRole->saveUserRoles($dataUser);
+                
                      
         }
         session()->setFlashData('success', 'Berhasil Mensave User');
@@ -89,7 +83,6 @@ class User extends BaseController
         public function update()
         {
         $model = new User_model();
-        $modelUserRole = new User_roles_model();
         $nik = $this->request->getPost('nik');
         $cek = $model->where('nik',$nik)->first();
         if ($cek) {
@@ -114,14 +107,13 @@ class User extends BaseController
                  'name' => $this->request->getPost('name'),
                  'email' => $this->request->getPost('email'),
                  'password' => $password_hash,
-                 'no_tel' => $this->request->getPost('no_tel'),];
+                 'no_tel' => $this->request->getPost('no_tel'),
+                 'role_id' => $this->request->getPost('role'),
+                ];
 
                  $model->updateUser($data,$id);
 
-                 $dataUser = [
-                        'role_id' => $this->request->getPost('role'),
-                 ];
-                $modelUserRole->updateUserRoles($dataUser,$id);
+                
                 }
                 session()->setFlashData('success', 'Berhasil Mengupdate Data');
                  return  redirect()->to('/user');

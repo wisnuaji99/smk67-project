@@ -11,18 +11,22 @@ class User_model extends Model {
         if ($id === false) {
             return $this->db->table($this->table." a ")
             ->select(' a.* , b.name_role AS roles')
-            ->join('user_roles c','a.id=c.user_id','left')
-            ->join('roles b','c.role_id=b.id','left')
+            ->join('roles b','a.role_id=b.id','left')
             ->groupBy(["a.id",])
             ->get()->getResultArray();
         } else {
             return $this->db->table($this->table." a " )
-            ->select('a.*, b.name_role AS roles, b.id as role_id')
-            ->join('user_roles c','a.id=c.user_id','left')->join('roles b','c.role_id=b.id','left')
+            ->select(' a.* , b.name_role AS roles')
+            ->join('roles b','a.role_id=b.id','left')
             ->groupBy(["a.id",])->getWhere(['a.id' => $id]);
             
         }
         
+    }
+
+    public function getUsersGuru()
+    {
+        return $this->getWhere(['role_id' => 3])->getResultArray();
     }
     public function saveUser($data)
     {

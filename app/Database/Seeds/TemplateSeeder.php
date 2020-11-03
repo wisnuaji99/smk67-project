@@ -12,7 +12,9 @@ class TemplateSeeder extends Seeder
             'lampiran' => ' surat pengunduran diri',
             'hal' => ' berisi surat pemberitahuan',
             'tgl_keluar' => '2019-02-01',
-            'jabatan_penulis' => ' staff tata usaha'
+            'jabatan_penulis' => ' staff tata usaha',
+            'user_id' => 15,
+            'created_by' => 'irvan'
         ];
 
         $data2 = [
@@ -21,7 +23,10 @@ class TemplateSeeder extends Seeder
             'lampiran' => 'surat penugasan guru',
             'hal' => ' berisi surat penugasan',
             'tgl_keluar' => '2018-12-12',
-            'jabatan_penulis' => 'wakil kepala sekolah'
+            'jabatan_penulis' => 'wakil kepala sekolah',
+            'user_id' => 14,
+            'created_by' => 'wisnu'
+
         ];
 
         $data3 = [
@@ -30,7 +35,9 @@ class TemplateSeeder extends Seeder
             'lampiran' => 'surat ujian nasional',
             'hal' => 'pemberitahuan ujian nasional',
             'tgl_keluar' => '2020-05-17',
-            'jabatan_penulis' => 'kepala sekolah'
+            'jabatan_penulis' => 'kepala sekolah',
+            'user_id' => 15,
+            'created_by' => 'lala'
         ];
         $data4 = [
             'nomor' => '12',
@@ -38,7 +45,9 @@ class TemplateSeeder extends Seeder
             'lampiran' => 'surat hasil ujian nasional',
             'hal' => 'hasil ujian nasional',
             'tgl_keluar' => ' 2020-05-25',
-            'jabatan_penulis' => 'kepala sekolah'
+            'jabatan_penulis' => 'kepala sekolah',
+            'user_id' => 16,
+            'created_by' => 'dina'
         ];
 
         $this->db->table('template')->insert($data1);

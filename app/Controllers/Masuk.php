@@ -18,7 +18,7 @@ class Masuk extends BaseController
 	{
         $data['urlmethod'] = $this->modul.'/save';
         $data['arr'] = 'Add';
-        $data['title'] = 'Form Surat';
+        $data['title'] = 'Form Surat Backup';
         $modelMasuk = new Masuk_model();
         $data['masuk'] = $modelMasuk->getMasuk();
         Services::template('masuks/index', $data);
@@ -28,14 +28,14 @@ class Masuk extends BaseController
         {
         $data['urlmethod'] = $this->modul.'/save';
         $data['arr'] = 'Add';
-        $data['title'] = 'Form Tambah Surat Masuk';
+        $data['title'] = 'Form Tambah Surat Backup';
         Services::template('masuks/form', $data);
         }
 
         public function save()
         {
         $model = new Masuk_model();
-      
+        $nomor_surat = $this->request->getPost('nomor');
         $file = $this->request->getFile('file');
 
         if ($_FILES) {
@@ -48,6 +48,7 @@ class Masuk extends BaseController
         $data = [
             'judul' => $this->request->getPost('judul'),
             'file' => $getFile,
+            'nomor' => $this->request->getPost('nomor'),
             //'status' => $this->request->getPost('status'),
         ];
         $model->saveMasuk($data);
@@ -79,14 +80,16 @@ class Masuk extends BaseController
 
         public function update()
         {
-        //var_dump($_FILES);die();
+//var_dump($_FILES['file']['name']);die();
         $model = new Masuk_model();
         $id = $this->request->getPost('id');
+        $nomor_surat = $this->request->getPost('nomor');
         $cek = $model->where('id',$id)->first();
-        $file = $this->request->getFile('file');
-        if ($file !== NULL) {
-                
-                if ($cek["file"] !== "") {
+       
+        //var_dump($file);die();
+        if ($_FILES['file']['name'] !== "") {
+                $file = $this->request->getFile('file');
+                if (file_exists(ROOTPATH.'public/uploads/'.$cek["file"])) {
                         unlink(ROOTPATH.'public/uploads/'.$cek["file"]);
                 }
                 
@@ -98,6 +101,7 @@ class Masuk extends BaseController
         
         $data = ['judul' => $this->request->getPost('judul'),
                 'file' => $getFile,
+                'nomor' => $this->request->getPost('nomor'),
                 //'status' => $this->request->getPost('status'),
 
         ];

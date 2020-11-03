@@ -7,17 +7,16 @@ $penerima = isset($surat) ? $surat->nama_penerima : "";
 $waktu = isset($surat) ? $surat->waktu : "";
 $pengirim = isset($surat) ? $surat->pengirim : "";
 $status = isset($surat) ? $surat->status : "";
-$nomor_surat = isset($surat) ? $surat->nomor_surat :"";
 $v = isset($v) ? "readonly" : "";
 $btn = isset($surat) ? "Ubah" : "Simpan";
 ?>
 <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Letters Management</h1>
+            <h1 class="h3 mb-0 text-gray-800">Letter Receive</h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="<?php echo base_url('/hello'); ?>">Dashboard</a></li>
-              <li class="breadcrumb-item">Letters Management</li>
+              <li class="breadcrumb-item">Letter Receive</li>
               <li class="breadcrumb-item active" aria-current="page"><?php echo $arr; ?></li>
             </ol>
           </div>
@@ -35,22 +34,7 @@ $btn = isset($surat) ? "Ubah" : "Simpan";
                  
                   <div class="form-group">
                     <label for="select2Single">Judul Surat</label>
-                    <?php if ($v == "") { ?>
-
-                      <select class="select2-single form-control"  name="surat"  
-                      <?php echo $v; ?> required style="width:100%" required>
-                        <?php if ($judul !== "") { ?>
-                          <option value="<?php echo $surat->surat_id?>" selected><?php echo $nomor_surat.' - '.$judul; ?></option>
-                        <?php } else { ?>
-                          <option value="" selected>Choose Surat</option>
-                        <?php }?>
-                       
-                          <?php  foreach ($masuks as $row) { ?>
-                            <option value="<?php echo $row["id"] ?>"><?php echo $row["nomor"].' - '.$row["judul"];  ?></option>
-                          <?php }?>
-                      </select>
-
-                        <?php } else {?>
+                  
                           <div style="padding:20px;">
                             <b><?php echo $judul; ?></b>&nbsp;
                             <a class="btn btn-success" 
@@ -58,44 +42,45 @@ $btn = isset($surat) ? "Ubah" : "Simpan";
                                 title="Tombol Download File" download>
                                 <i class="fa fa-download"></i></a> 
                           </div>
-                       
-                      
-                    <?php } ?>
+        
                   </div>
 
                   <div class="form-group">
 
                   <?php if ($v == "") { ?>
                     
-                    <?php if ($penerima !== "") { ?>
-                      <label for="select2Single">Penerima Surat</label>
-                      <select class="select2-single form-control"  name="penerima[]"  
-                      <?php echo $v; ?> required style="width:100%" required>
-                          <option value="<?php echo $surat->user_id?>" selected><?php echo $penerima; ?></option>
-                          <?php foreach ($users as $row) {  ?>
-                            <option value="<?php echo $row["id"] ?>"><?php echo $row["name"];  ?></option>
-                          <?php } ?>
-                        </select>
-                      </select>
+                    <label for="select2Single">Status Surat</label>
+                  
+                      <select class="select2-single form-control" name="status" id="select2Single">
+                      <?php if (isset($surat)) { ?>
 
-                    <?php } else { ?>
-                      
-                      <label for="select2Multiple">Penerima</label>
-                      <select class="select2-multiple form-control" name="penerima[]" multiple="multiple"
-                        id="select2Multiple">
-                        <!-- <option value="" selected>Select Penerima</option> -->
-                        <?php foreach ($users as $row) {  ?>
-                            <option value="<?php echo $row["id"] ?>"><?php echo $row["name"];  ?></option>
-                          <?php } ?>
-                        </select>
+                        <option value="<?php echo $status; ?>">
+                          <?php 
+                          if ($status == 1) {
+                            echo "Dikirim";
+                          } elseif ($status == 2) {
+                            echo "Dibaca";
+                          } elseif ($status == 3) {
+                            echo "Prmintaan Surat Balasan";
+                          } 
+                           
+                          ?>
+                        </option>
+                          
+                      <?php } else { ?>
+                        
+                        <option value="">Select Status</option>
 
-                    <?php } ?>    
+                      <?php   } ?>
+                     
+                      <option value="1">Dikirim</option>
+                      <option value="2">Dibaca</option>
+                      <option value="3">Permintaan Surat Balasan</option>
+                    </select>
 
-                  <?php } else {?>
-                    <label for="select2Single">Penerima Surat</label>
-                      <p><?php echo $penerima; ?></p>
+                    <?php }?>
 
-                      <?php } ?>
+                  
                     </div>
         
                 <?php  if ($v != "") { ?>
@@ -128,7 +113,7 @@ $btn = isset($surat) ? "Ubah" : "Simpan";
                     <?php if ($v == "") { ?>
                       <button type="submit" class="btn btn-primary"><?php echo $btn; ?></button>
                     <?php }?>
-                    <a href="/surat" class="btn btn-primary" >Kembali</a>
+                    <a href="/receive" class="btn btn-primary" >Kembali</a>
                   </form>
                 </div>
               </div>

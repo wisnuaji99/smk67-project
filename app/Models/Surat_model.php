@@ -10,7 +10,7 @@ class Surat_model extends model {
         if ($id === false) {
 
             return $this->db->table($this->table." a ")
-            ->select('a.*, DATE_FORMAT(a.tgl_kirim, "%W,%M %e %Y, %r") as waktu ,b.judul AS judul_surat, b.file AS file_surat, c.name AS nama_penerima')
+            ->select('a.*, DATE_FORMAT(a.tgl_kirim, "%W,%M %e %Y") as waktu ,b.judul AS judul_surat,b.nomor AS nomor_surat, b.file AS file_surat, c.name AS nama_penerima')
             ->join('surat_masuk b','a.surat_id=b.id','left')
             ->join('users c','a.user_id = c.id','left')
             ->get()->getResultArray();
@@ -18,7 +18,7 @@ class Surat_model extends model {
         } else {
 
             return $this->db->table($this->table." a " )
-            ->select('a.*, DATE_FORMAT(a.tgl_kirim, "%W,%M %e %Y, %r") as waktu, b.judul AS judul_surat, b.file AS file_surat, c.name AS nama_penerima')
+            ->select('a.*, DATE_FORMAT(a.tgl_kirim, "%W,%M %e %Y") as waktu, b.judul AS judul_surat,b.nomor AS nomor_surat, b.file AS file_surat, c.name AS nama_penerima')
             ->join('surat_masuk b','a.surat_id=b.id','left')
             ->join('users c','a.user_id = c.id','left')
             ->getWhere(['a.id' => $id]);

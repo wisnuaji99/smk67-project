@@ -40,6 +40,18 @@ class Filters extends BaseConfig
 			'before' => [
 				'user',
 				'user/*',
+				'backup',
+				'backup/*',
+				'masuk',
+				'masuk/*',
+				'surat',
+				'surat/*',
+				'role',
+				'role/*',
+				'profile',
+				'profile/*',
+
+
 				// 'api/product',
 				// 'api/category/*',
 				// 'api/category',

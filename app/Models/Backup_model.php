@@ -9,13 +9,16 @@ class Backup_model extends Model {
     public function getBackup($id = false)
     {
         if ($id === false) {
-            return $this->orderBy('id', 'ASC')->findAll();
+            return $this->db->table($this->table)
+            ->select('*,DATE_FORMAT(tgl_simpan, "%W,%M %e %Y") as waktu')
+            ->get()->getResultArray();
         } else {
             return $this->getWhere(['id' => $id]);
         }
         
     }
     
+
     public function saveBackup($data)
     {
        $query = $this->db->table($this->table)->insert($data);

@@ -1,20 +1,20 @@
 <?php
 
-$id = isset($masuk) ? $masuk->id : "";
-$nomor_surat = isset($masuk) ? $masuk->nomor : "";
-$judul = isset($masuk) ? $masuk->judul : "";
-$file = isset($masuk) ? $masuk->file : "";
+$id = isset($backup) ? $backup->id : "";
+$nomor_surat = isset($backup) ? $backup->nomor : "";
+$judul = isset($backup) ? $backup->judul : "";
+$file = isset($backup) ? $backup->file : "";
 
 $v = isset($v) ? "readonly" : "";
-$btn = isset($masuk) ? "Ubah" : "Simpan";
+$btn = isset($backup) ? "Ubah" : "Simpan";
 ?>
 <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Letters Management</h1>
+            <h1 class="h3 mb-0 text-gray-800">Letters Backup</h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="<?php echo base_url('/hello'); ?>">Dashboard</a></li>
-              <li class="breadcrumb-item">Letters Management</li>
+              <li class="breadcrumb-item">Letters Backups</li>
               <li class="breadcrumb-item active" aria-current="page"><?php echo $arr; ?></li>
             </ol>
           </div>
@@ -65,7 +65,7 @@ $btn = isset($masuk) ? "Ubah" : "Simpan";
                     <?php if ($v == "") { ?>
                       <button type="submit" class="btn btn-primary"><?php echo $btn; ?></button>
                     <?php }?>
-                    <a href="/masuk" class="btn btn-primary" >Kembali</a>
+                    <a href="/backup" class="btn btn-primary" >Kembali</a>
                   </form>
                 </div>
               </div>

@@ -6,23 +6,21 @@ use App\Models\User_model;
 use Config\Services;
 use CodeIgniter\I18n\Time;
 
-class Templated extends BaseController
+class Kerangka extends BaseController
 {
-        protected $modul = 'template';
+    protected $modul = 'kerangka';
         public function __construct(){
         helper('form');
         helper('file');
+}
+    public function index()
+    {
+    $model = new Template_model();
+    $data['user3'] = $model->getTemplate();
+    //var_dump($model->getRoles());
+    Services::template('templates/index',$data);
     }
-	public function index()
-	{
-        var_dump('test');die();
-        $model = new Template_model();
-        $data['user3'] = $model->getTemplate();
-        //var_dump($model->getRoles());
-        Services::template('templates/index',$data);
-        }
-        
-        public function add()
+    public function add($id)
         {
         $modelUser = new User_model();
         $modelMasuk = new Masuk_model();
@@ -116,7 +114,5 @@ class Templated extends BaseController
         
         return redirect()->to('/template');
         }
-
-
 
 }
