@@ -61,6 +61,12 @@ $btn = isset($template) ? "Ubah" : "Simpan";
                     </div>
 
                     <div class="form-group">
+                      <label for="editor">ISI</label>
+                      <textarea class="form-control" id="editor" rows="3"></textarea>
+                      <small id="editor" class="form-text text-muted">Input ISI properly.</small>
+                    </div>
+
+                    <div class="form-group">
                       <label for="tgl_keluar">Tanggal Keluar</label>
                       <input type="text" class="form-control" id="tgl_keluar" name="tgl_keluar" aria-describedby="tgl_keluar"
                         placeholder="Enter Tanggal Keluar" value="<?php echo $tgl_keluar?>" <?php echo $v; ?> required>
@@ -84,6 +90,20 @@ $btn = isset($template) ? "Ubah" : "Simpan";
               </div>
             </div>
         </div>
-                    
-                  
-   
+        
+        <script src="<?php echo base_url().'/ckeditor5/ckeditor.js'?>"></script>
+        <style>
+        .ck-editor__editable_inline{
+            min-height: 200px;
+        }
+    </style>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .then( editor => {
+                console.log( editor );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
