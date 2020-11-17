@@ -28,6 +28,21 @@ class User_model extends Model {
     {
         return $this->getWhere(['role_id' => 3])->getResultArray();
     }
+
+    public function getSender()
+    {
+        $where = "role_id in (1,4)";
+        return $this->where($where)->countAllResults();
+
+    }
+
+    public function getReceiver()
+    {
+        $where = "role_id in (2,3)";
+        return $this->where($where)->countAllResults();
+    }
+
+
     public function saveUser($data)
     {
        $query = $this->db->table($this->table)->insert($data);

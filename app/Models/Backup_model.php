@@ -43,4 +43,12 @@ class Backup_model extends Model {
     }
 
 
+    public function getOutputMonthly($month)
+    {
+        $query = $this->select("count(*) as jumlah, DATE_FORMAT(tgl_simpan,'%M') AS bulan")
+        ->where(" DATE_FORMAT(tgl_simpan,'%Y')",$month )
+        ->groupBy("DATE_FORMAT(tgl_simpan,'%Y-%m')");
+        return $query->get()->getResultArray();
+    }
+
 }
