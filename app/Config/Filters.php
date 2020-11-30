@@ -50,6 +50,11 @@ class Filters extends BaseConfig
 				'role/*',
 				'profile',
 				'profile/*',
+				'permintaan',
+				'permintaan/*',
+				'kerangka',
+				'kerangka/*',
+				
 
 
 				// 'api/product',

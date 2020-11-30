@@ -1,12 +1,23 @@
+  <!-- Bootstrap DatePicker -->  
+  <link href="<?php echo base_url().'/template/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css'?>" rel="stylesheet" type="text/css">
+  <!-- Bootstrap Touchspin -->
+  <link href="<?php echo base_url().'/template/vendor/bootstrap-touchspin/css/jquery.bootstrap-touchspin.css'?>" rel="stylesheet" type="text/css">
+  <!-- ClockPicker -->
+  <link href="<?php echo base_url().'/template/vendor/clock-picker/clockpicker.css'?>" rel="stylesheet" type="text/css">
+
 <?php
 
 $id = isset($template) ? $template->id : "";
-$nomor = isset($template) ? $template->judul_surat : "";
-$sifat = isset($template) ? $template->file_surat : "";
-$lampiran = isset($template) ? $template->nama_penerima : "";
-$hal = isset($template) ? $template->waktu : "";
-$tgl_keluar = isset($template) ? $template->pengirim : "";
-$jabatan_penulis = isset($template) ? $template->status : "";
+$nomor = isset($template) ? $template->nomor : "";
+$sifat = isset($template) ? $template->sifat : "";
+$lampiran = isset($template) ? $template->lampiran : "";
+$hal = isset($template) ? $template->hal : "";
+$tgl_keluar = isset($template) ? $template->tgl_keluar : "";
+$jabatan_penulis = isset($template) ? $template->jabatan_penulis : "";
+$user_id = isset($template) ? $template->user_id : "";
+$created_by = isset($template) ? $template->created_by : "";
+$isi = isset($template) ? $template->isi : "";
+$user_data_id = isset($template) ? "" : $user_data_id;
 $v = isset($v) ? "readonly" : "";
 $btn = isset($template) ? "Ubah" : "Simpan";
 ?>
@@ -31,7 +42,8 @@ $btn = isset($template) ? "Ubah" : "Simpan";
                 <div class="card-body">
                   <form action="<?php echo site_url($urlmethod) ?>" method="post"  enctype="multipart/form-data">
                   <input type="hidden" name="id" value="<?php echo $id; ?>"> 
-                 
+                  <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
+                  <input type="hidden" name="user_data_id" value="<?php echo $user_data_id; ?>">
                   <div class="form-group">
                       <label for="nomor">Nomor</label>
                       <input type="text" class="form-control" id="nomor" name="nomor" aria-describedby="nomor"
@@ -61,23 +73,29 @@ $btn = isset($template) ? "Ubah" : "Simpan";
                     </div>
 
                     <div class="form-group">
-                      <label for="editor">ISI</label>
-                      <textarea class="form-control" id="editor" rows="3"></textarea>
+                      <label for="editor">Isi Surat</label>
+                      <textarea class="form-control" id="editor" name="isi" rows="3"><?php echo $isi; ?></textarea>
                       <small id="editor" class="form-text text-muted">Input ISI properly.</small>
                     </div>
 
-                    <div class="form-group">
-                      <label for="tgl_keluar">Tanggal Keluar</label>
-                      <input type="text" class="form-control" id="tgl_keluar" name="tgl_keluar" aria-describedby="tgl_keluar"
-                        placeholder="Enter Tanggal Keluar" value="<?php echo $tgl_keluar?>" <?php echo $v; ?> required>
-                      <small id="tgl_keluar" class="form-text text-muted">Input Tanggal Keluar properly.</small>
-                    </div>
+                   
+
+                    <div class="form-group" id="simple-date1">
+                    <label for="simpleDataInput">Tanggal Keluar</label>
+                      <div class="input-group date">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                        </div>
+                        <input type="text" class="form-control" name="tgl_keluar"  placeholder="Enter Tanggal Keluar" value="<?php echo $tgl_keluar?>" id="simpleDataInput" 
+                        <?php echo $v; ?> required>
+                      </div>
+                  </div>
 
                     <div class="form-group">
-                      <label for="jabatan_penulis">Jabatan Penulis</label>
+                      <label for="jabatan_penulis">Ditujukkan kepada</label>
                       <input type="text" class="form-control" id="jabatan_penulis" name="jabatan_penulis" aria-describedby="jabatan_penulis"
-                        placeholder="Enter jabatan penulis" value="<?php echo $jabatan_penulis?>" <?php echo $v; ?> required>
-                      <small id="jabatan_penulis" class="form-text text-muted">Input Jabatan Penulis properly.</small>
+                        placeholder="Enter Ditujukan Kepada" value="<?php echo $jabatan_penulis?>" <?php echo $v; ?> required>
+                      <small id="jabatan_penulis" class="form-text text-muted">Input Ditujukan Kepada Properly.</small>
                     </div>
                
                   
@@ -107,3 +125,110 @@ $btn = isset($template) ? "Ubah" : "Simpan";
                 console.error( error );
             } );
     </script>
+
+     <!-- Bootstrap Datepicker -->
+  <script src="<?php echo base_url().'/template/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js'?>"></script>
+  <!-- Bootstrap Touchspin -->
+  <script src="<?php echo base_url().'/template/vendor/bootstrap-touchspin/js/jquery.bootstrap-touchspin.js'?>"></script>
+  <!-- ClockPicker -->
+  <script src="<?php echo base_url().'/template/vendor/clock-picker/clockpicker.js'?>"></script>
+
+  <!-- Javascript for this page -->
+  <script>
+    $(document).ready(function () {
+
+
+      $('.select2-single').select2();
+
+      // Select2 Single  with Placeholder
+      $('.select2-single-placeholder').select2({
+        placeholder: "Select a Province",
+        allowClear: true
+      });      
+
+      // Select2 Multiple
+      $('.select2-multiple').select2();
+
+      // Bootstrap Date Picker
+      $('#simple-date1 .input-group.date').datepicker({
+        format: 'yyyy-mm-dd',
+        todayBtn: 'linked',
+        todayHighlight: true,
+        autoclose: true,        
+      });
+
+      $('#simple-date2 .input-group.date').datepicker({
+        startView: 1,
+        format: 'dd/mm/yyyy',        
+        autoclose: true,     
+        todayHighlight: true,   
+        todayBtn: 'linked',
+      });
+
+      $('#simple-date3 .input-group.date').datepicker({
+        startView: 2,
+        format: 'dd/mm/yyyy',        
+        autoclose: true,     
+        todayHighlight: true,   
+        todayBtn: 'linked',
+      });
+
+      $('#simple-date4 .input-daterange').datepicker({        
+        format: 'dd/mm/yyyy',        
+        autoclose: true,     
+        todayHighlight: true,   
+        todayBtn: 'linked',
+      });    
+
+      // TouchSpin
+
+      $('#touchSpin1').TouchSpin({
+        min: 0,
+        max: 100,                
+        boostat: 5,
+        maxboostedstep: 10,        
+        initval: 0
+      });
+
+      $('#touchSpin2').TouchSpin({
+        min:0,
+        max: 100,
+        decimals: 2,
+        step: 0.1,
+        postfix: '%',
+        initval: 0,
+        boostat: 5,
+        maxboostedstep: 10
+      });
+
+      $('#touchSpin3').TouchSpin({
+        min: 0,
+        max: 100,
+        initval: 0,
+        boostat: 5,
+        maxboostedstep: 10,
+        verticalbuttons: true,
+      });
+
+      $('#clockPicker1').clockpicker({
+        donetext: 'Done'
+      });
+
+      $('#clockPicker2').clockpicker({
+        autoclose: true
+      });
+
+      let input = $('#clockPicker3').clockpicker({
+        autoclose: true,
+        'default': 'now',
+        placement: 'top',
+        align: 'left',
+      });
+
+      $('#check-minutes').click(function(e){        
+        e.stopPropagation();
+        input.clockpicker('show').clockpicker('toggleView', 'minutes');
+      });
+
+    });
+  </script>

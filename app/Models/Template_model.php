@@ -9,9 +9,20 @@ class Template_model extends Model {
     public function getTemplate($id = false)
     {
         if ($id === false) {
-            return $this->findAll();
+            return $this->db->table($this->table." a ")
+            ->select(' a.* , b.name AS name')
+            ->join('users b','a.user_id=b.id','left')
+            ->groupBy(["a.id"])
+            ->orderBy('a.tgl_keluar','desc')
+            ->get()->getResultArray();
         } else {
-            return $this->getWhere(['id' => $id]);
+            return $this->db->table($this->table." a " )
+            ->select(' a.* , b.name AS name')
+            ->join('users b','a.user_id=b.id','left')
+            ->groupBy(["a.id"])
+            ->orderBy('a.tgl_keluar','desc')
+            ->getWhere(['a.id' => $id]);
+            
         }
         
     }

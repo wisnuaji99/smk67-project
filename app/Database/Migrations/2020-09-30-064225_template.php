@@ -34,6 +34,9 @@ class Template extends Migration
 			'tgl_keluar'       => [
 				'type'           => 'DATE',
 			]	,
+			'isi'       => [
+				'type'           => 'TEXT',
+			]	,
 			'jabatan_penulis'       => [
 				'type'           => 'VARCHAR',
 				'constraint'	 => '45',

@@ -14,6 +14,7 @@ class PdfController extends Controller
     }
 
     function htmlToPDF(){
+        //set_time_limit(300);
         $options = new Options();
         $options->setIsPhpEnabled(true);
         $options->setIsHtml5ParserEnabled(true);
@@ -22,7 +23,7 @@ class PdfController extends Controller
         $dompdf = new Dompdf($options);
     
         $dompdf->loadHtml(view('pdf_view'));
-        $dompdf->setPaper(array(0,0,609.4488,935.433), 'portrait');
+        $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
         $dompdf->stream();
     }

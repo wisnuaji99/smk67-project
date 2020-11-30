@@ -16,6 +16,7 @@
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary"><?php echo $title; ?></h6>
+                  <a href="/kerangka" class="btn btn-success pull-right">List of Request letters</a>
                 </div>
                 <div class="table-responsive p-3">
                   <table class="table align-items-center table-flush table-hover" id="dataTableHover">
@@ -63,7 +64,7 @@
                                           } else if ($row['status']== 3) {
                                                echo "Permintaan Surat Balasan";}?></td> 
                                 <td>  
-                                    <a  class="btn btn-success" href="/kerangka/add/<?php echo $row['id'] ?>"
+                                    <a  class="btn btn-success" href="/kerangka/add/<?php echo $row['id_penerima'] ?>"
                                     data-toggle="tooltip" data-html="true" title="Buat Surat Permintaan"
                                     ><i class="fas fa-plus"></i></a>
                                     <a  class="btn btn-info" href="/permintaan/view/<?php echo $row['id'] ?>"

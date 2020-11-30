@@ -8,14 +8,14 @@ class Surat_user_model extends model {
     {
         if ($id === false) {
             return $this->db->table($this->table." a ")
-            ->select('a.*, DATE_FORMAT(a.tgl_kirim, "%W,%M %e %Y") as waktu ,b.judul AS judul_surat,b.nomor AS nomor_surat, b.file AS file_surat, c.name AS nama_penerima')
+            ->select('a.*, DATE_FORMAT(a.tgl_kirim, "%W,%M %e %Y") as waktu ,b.judul AS judul_surat,b.nomor AS nomor_surat, b.file AS file_surat, c.name AS nama_penerima, c.id AS id_penerima')
             ->join('surat_masuk b','a.surat_id=b.id','left')
             ->join('users c','a.user_id = c.id','left')
             ->get()->getResultArray();
 
         } else {
             return $this->db->table($this->table." a " )
-            ->select('a.*, DATE_FORMAT(a.tgl_kirim, "%W,%M %e %Y") as waktu, b.judul AS judul_surat,b.nomor AS nomor_surat, b.file AS file_surat, c.name AS nama_penerima')
+            ->select('a.*, DATE_FORMAT(a.tgl_kirim, "%W,%M %e %Y") as waktu, b.judul AS judul_surat,b.nomor AS nomor_surat, b.file AS file_surat, c.name AS nama_penerima, c.id AS id_penerima')
             ->join('surat_masuk b','a.surat_id=b.id','left')
             ->join('users c','a.user_id = c.id','left')
             ->getWhere(['a.id' => $id]);            
@@ -37,14 +37,14 @@ class Surat_user_model extends model {
         if ($id === false) {
 
             return $this->db->table($this->table." a " )
-            ->select('a.*, DATE_FORMAT(a.tgl_kirim, "%W,%M %e %Y") as waktu, b.judul AS judul_surat,b.nomor AS nomor_surat, b.file AS file_surat, c.name AS nama_penerima')
+            ->select('a.*, DATE_FORMAT(a.tgl_kirim, "%W,%M %e %Y") as waktu, b.judul AS judul_surat,b.nomor AS nomor_surat, b.file AS file_surat, c.name AS nama_penerima, c.id AS id_penerima')
             ->join('surat_masuk b','a.surat_id=b.id','left')
             ->join('users c','a.user_id = c.id','left')
             ->getWhere(['a.status' => 3])->getResultArray();
 
         } else {
             return $this->db->table($this->table." a " )
-            ->select('a.*, DATE_FORMAT(a.tgl_kirim, "%W,%M %e %Y") as waktu, b.judul AS judul_surat,b.nomor AS nomor_surat, b.file AS file_surat, c.name AS nama_penerima')
+            ->select('a.*, DATE_FORMAT(a.tgl_kirim, "%W,%M %e %Y") as waktu, b.judul AS judul_surat,b.nomor AS nomor_surat, b.file AS file_surat, c.name AS nama_penerima, c.id AS id_penerima')
             ->join('surat_masuk b','a.surat_id=b.id','left')
             ->join('users c','a.user_id = c.id','left')
             ->getWhere(['a.user_id' => $id, 'a.status' => 3])->getResultArray();
